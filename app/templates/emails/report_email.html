@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Seu Relatório de IA Está Pronto – YouDecoded.AI</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f8fa;
+      padding: 40px 20px;
+      color: #0b1f36;
+    }
+
+    .email-wrapper {
+      max-width: 620px;
+      margin: auto;
+      background: #ffffff;
+      padding: 32px;
+      border-radius: 12px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+    }
+
+    h1 {
+      color: #0b1f36;
+      font-size: 24px;
+      text-align: center;
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    .profile {
+      margin: 24px 0;
+      font-size: 16px;
+      padding: 16px;
+      background: #f2f6fc;
+      border-left: 4px solid #d4af37;
+      border-radius: 8px;
+    }
+
+    .cta-button {
+      display: inline-block;
+      margin-top: 24px;
+      padding: 12px 20px;
+      background-color: #d4af37;
+      color: #0b1f36;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .footer {
+      font-size: 13px;
+      margin-top: 32px;
+      color: #999;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="email-wrapper">
+    <h1>Olá, {{ nome }}! 🌟</h1>
+
+    <p>Acabamos de decodificar seu perfil comportamental único com o poder da IA combinada com MBTI, DISC e Eneagrama.</p>
+
+    <p>Isso é mais do que um relatório — é sua bússola de autoconhecimento.</p>
+
+    <div class="profile">
+      <p><strong>MBTI:</strong> {{ mbti }}</p>
+      <p><strong>DISC:</strong> {{ disc }}</p>
+      <p><strong>Eneagrama:</strong> {{ eneagrama }}</p>
+    </div>
+
+    <p>🧭 Esta combinação poderosa revela seus pontos fortes, áreas de crescimento, estilo de decisão e motivações profundas.</p>
+
+    <p>Clique abaixo para acessar seu relatório interativo completo:</p>
+
+    <div style="text-align: center;">
+      <a href="{{ link }}" class="cta-button">Ver Meu Relatório Agora</a>
+    </div>
+
+    <hr style="margin: 32px 0; border: none; border-top: 1px solid #eee;">
+
+    <p>🚀 Quer insights mais profundos e dicas personalizadas todo mês? Faça o upgrade para o <strong>PRO</strong> e desbloqueie ferramentas exclusivas de crescimento criadas especialmente para você.</p>
+
+    <div style="text-align: center;">
+      <a href="https://youdecoded-ai.onrender.com/products" class="cta-button" style="background-color: #0b1f36; color: #fff;">Fazer Upgrade para PRO</a>
+    </div>
+
+    <p class="footer">Com carinho,<br>Equipe YouDecoded.AI</p>
+  </div>
+</body>
+</html>

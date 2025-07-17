@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}Payment Successful • YouDecoded.AI{% endblock %}
+{% block content %}
+
+<style>
+  .success-container {
+    max-width: 700px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background-color: #0b1f36;
+    color: white;
+    border-radius: 20px;
+    text-align: center;
+  }
+
+  .success-container h1 {
+    color: #d4af37;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .success-container p {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    color: #dddddd;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    background-color: #d4af37;
+    color: #0b1f36;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    text-decoration: none;
+    margin: 0.5rem auto;
+    display: inline-block;
+  }
+
+  .btn-secondary {
+    background-color: transparent;
+    color: #d4af37;
+    border: 2px solid #d4af37;
+  }
+
+  .btn-primary:hover,
+  .btn-secondary:hover {
+    background-color: #c49e2c;
+    color: #0b1f36;
+  }
+</style>
+
+<div class="success-container">
+  <h1>🎉 Pagamento Realizado com Sucesso</h1>
+  <p>Obrigado, {{ user_name }}! Sua compra foi concluída com sucesso.</p>
+
+  <a href="{{ next_url }}" class="btn-primary">Começar Agora</a>
+
+  <p>Mudou de ideia? Você pode solicitar o reembolso agora. ⚠️ Nenhum reembolso será emitido após o início do teste.</p>
+  <a href="mailto:support@youdecodedai.online?subject=Solicitação de Reembolso&body=Olá, gostaria de solicitar o reembolso da minha compra recente." class="btn-secondary">
+    Solicitar Reembolso
+  </a>
+</div>
+
+{% endblock %}

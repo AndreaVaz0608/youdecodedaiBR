@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+{% block title %}Choose Your Plan • YouDecoded.AI{% endblock %}
+{% block content %}
+
+<style>
+  .products-container {
+    max-width: 1000px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background-color: #0b1f36;
+    color: white;
+    border-radius: 20px;
+    text-align: center;
+  }
+
+  .products-container h1 {
+    color: #d4af37;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .plan-grid {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .plan-box {
+    flex: 1;
+    min-width: 280px;
+    background-color: #132c49;
+    padding: 1.8rem;
+    border-radius: 16px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    max-width: 300px;
+    box-sizing: border-box;
+  }
+
+  .plan-box:hover {
+    border-color: #d4af37;
+    transform: scale(1.03);
+  }
+
+  .plan-box h2 {
+    color: #d4af37;
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+  }
+
+  .plan-box p {
+    font-size: 0.95rem;
+    margin-bottom: 1.2rem;
+    color: #d0d0d0;
+  }
+
+  .select-button {
+    background-color: #d4af37;
+    color: #0b1f36;
+    padding: 0.7rem 1.4rem;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 0.5rem;
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+
+  .select-button:hover {
+    background-color: #c49e2c;
+  }
+
+  .recommended-plan {
+    border: 2px solid #d4af37;
+    background-color: #193c61;
+  }
+
+  .plan-recommendation {
+    color: #ffdd77;
+    font-weight: bold;
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .products-container {
+      padding: 1.5rem;
+    }
+    .products-container h1 {
+      font-size: 1.7rem;
+    }
+    .plan-grid {
+      gap: 1.5rem;
+    }
+    .plan-box {
+      max-width: 90%;
+      margin: 0 auto;
+      padding: 1.5rem;
+    }
+    .select-button {
+      width: 100%;
+      padding: 0.9rem;
+      font-size: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .products-container {
+      padding: 1rem;
+    }
+    .products-container h1 {
+      font-size: 1.5rem;
+    }
+    .plan-grid {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+    .plan-box {
+      width: 100%;
+      padding: 1.2rem;
+    }
+    .select-button {
+      width: 100%;
+      font-size: 1rem;
+      padding: 1rem;
+    }
+  }
+</style>
+
+<div class="products-container">
+  <h1>Escolha o Melhor Plano para Você</h1>
+
+  <div class="plan-grid">
+    <!-- PREMIUM (DESTACADO) -->
+    <div class="plan-box recommended-plan">
+      <h2>Pacote Premium</h2>
+      <p class="plan-recommendation">★ Mais Popular</p>
+      <p>Acesse a avaliação completa e receba um relatório gerado por IA que integra MBTI, DISC e Eneagrama.</p>
+      <a
+        href="{{ url_for('payment.checkout_premium') }}?utm_source=site&utm_medium=button&utm_campaign=premium_launch"
+        class="select-button"
+      >
+        Escolher Premium
+      </a>
+    </div>
+
+    <!-- PRO -->
+    <div class="plan-box">
+      <h2>Pacote Pro</h2>
+      <p>Todos os benefícios do Premium + insights mensais, dicas de crescimento e suporte prioritário da nossa IA.</p>
+      <a
+        href="https://buy.stripe.com/6oEcNlarpbCVeIgfZ1?utm_source=site&utm_medium=button&utm_campaign=pro_launch"
+        target="_blank"
+        class="select-button"
+      >
+        Escolher Pro
+      </a>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

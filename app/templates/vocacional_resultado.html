@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Vocational Result • YouDecoded.AI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background-color: #0b1f36;
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 2rem;
+    }
+
+    .result-wrapper {
+      background: #0b1f36;
+      padding: 2.5rem;
+      border-radius: 20px;
+      max-width: 860px;
+      margin: auto;
+    }
+
+    h1 {
+      color: #d4af37;
+      text-align: left;
+      margin-bottom: 1.5rem;
+      font-size: 1.8rem;
+    }
+
+    .report {
+      background-color: rgba(255, 255, 255, 0.05);
+      padding: 2rem;
+      border-radius: 12px;
+      line-height: 1.8;
+      font-size: 1.05rem;
+    }
+
+    .report p {
+      margin-bottom: 1.5rem;
+    }
+
+    .report strong {
+      color: #d4af37;
+      font-weight: 600;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2.5rem;
+    }
+
+    .btn-download,
+    .btn-return {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background-color: #d4af37;
+      color: #0b1f36;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-download:hover,
+    .btn-return:hover {
+      background-color: #c39b2b;
+    }
+  </style>
+</head>
+<body>
+  <div class="result-wrapper">
+  <h1>🎯 Seu Relatório Vocacional</h1>
+
+  <div class="report">
+    {% for paragraph in resultado.split('\n\n') %}
+      <p>{{ paragraph | safe }}</p>
+    {% endfor %}
+  </div>
+
+  {% if not pdf_mode %}
+  <div class="button-group">
+    <a href="{{ url_for('vocacional.vocacional_pdf', session_id=session_id) }}" class="btn-download" target="_blank">⬇️ Baixar PDF</a>
+    <a href="{{ url_for('auth_views.dashboard') }}" class="btn-return">🏠 Voltar ao Painel</a>
+  </div>
+  {% endif %}
+</div>
+</body>
+</html>

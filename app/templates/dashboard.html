@@ -1,0 +1,286 @@
+{% extends "base.html" %}
+{% block title %}User Dashboard • YouDecoded.AI{% endblock %}
+{% block content %}
+
+<style>
+  .dashboard-wrapper {
+    background: #0b1f36;
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+    max-width: 860px;
+    margin: 2.5rem auto;
+    color: white;
+  }
+
+  .dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .dashboard-header h1 {
+    font-size: 1.6rem;
+    color: #d4af37;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .dashboard-header a {
+    font-size: 0.9rem;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+    border: 1px solid #d4af37;
+    padding: 0.4rem 0.8rem;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+  }
+
+  .dashboard-header a:hover {
+    background-color: #d4af37;
+    color: #0b1f36;
+  }
+
+  .account-info {
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    color: #ddd;
+  }
+
+  .account-info p {
+    margin: 0.3rem 0;
+  }
+
+  .account-info a {
+    display: inline-block;
+    margin-top: 0.6rem;
+    background-color: #d4af37;
+    color: #0b1f36;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+  }
+
+  .account-info a:hover {
+    background-color: #c39b2b;
+  }
+
+  .metric {
+    font-size: 1.05rem;
+    margin-bottom: 1.2rem;
+    color: #eeeeee;
+    padding: 0 0.5rem;
+  }
+
+  .metric strong {
+    color: #d4af37;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 2rem 0;
+    padding: 0 0.5rem;
+  }
+
+  .actions a {
+    padding: 0.75rem 1.5rem;
+    background-color: #d4af37;
+    color: #0b1f36;
+    border-radius: 10px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    flex: 1 1 auto;
+    text-align: center;
+  }
+
+  .actions a:hover {
+    background-color: #c39b2b;
+  }
+
+  .quick-access {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .quick-access a {
+    display: inline-block;
+    background-color: #d4af37;
+    color: #0b1f36;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+  }
+
+  .quick-access a:hover {
+    background-color: #c39b2b;
+  }
+
+  .ai-summary-box {
+    margin-top: 2.5rem;
+    padding: 1.5rem;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .ai-summary-box h2 {
+    font-size: 1.2rem;
+    color: #ffdd77;
+    margin-bottom: 1rem;
+  }
+
+  .ai-summary-item {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .ai-summary-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .ai-summary-item p {
+    color: #eee;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+</style>
+
+<div class="dashboard-wrapper">
+  <div class="dashboard-header">
+    <h1>Bem-vinda, {{ nome.split()[0] }} 👋</h1>
+    <a href="{{ url_for('auth_views.logout') }}">Sair</a>
+  </div>
+
+  <div class="account-info">
+    <p><strong>Nome completo:</strong> {{ nome }}</p>
+    <p><strong>Email:</strong> {{ email }}</p>
+    <a href="{{ url_for('user.editar_perfil') }}">Editar perfil</a>
+  </div>
+
+  {% if total > 0 and ultima_sessao %}
+    <div class="quick-access">
+      <a href="{{ url_for('user.gerar_relatorio', sessao_id=ultima_sessao.id) }}">
+        📄 Acessar seu último relatório
+      </a>
+    </div>
+
+    <div class="metric">
+      Você já completou <strong>{{ total }}</strong> sessão(ões) de teste.
+    </div>
+
+    <div class="metric">
+      Última sessão: <strong>{{ ultima_sessao.created_at.strftime('%d/%m/%Y %H:%M') }}</strong>
+    </div>
+
+    <div class="actions">
+      <a href="{{ url_for('user.gerar_relatorio', sessao_id=ultima_sessao.id) }}">Ver Relatório</a>
+      <a href="{{ url_for('user.historico_view') }}">Ver Evolução</a>
+    </div>
+  {% endif %}
+
+  <div class="actions">
+    <a href="{{ url_for('user.assessment_view') }}">Iniciar novo teste</a>
+  </div>
+
+  {% if recomendacoes %}
+    <div class="ai-summary-box">
+      <h2>🧠 Sua Evolução Comportamental</h2>
+      <p style="color:#ccc; font-size:0.9rem; margin-bottom: 1.5rem;">
+        Esses são os 6 últimos resumos gerados pela IA. Eles refletem como seu perfil comportamental tem evoluído com o tempo.
+      </p>
+
+      {% for r in recomendacoes %}
+        <div class="ai-summary-item">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.6rem;">
+            <span style="font-weight: bold; color: #ffdd77;">📅 {{ r.data }}</span>
+            <span style="font-size: 0.9rem; color: #aaa;">
+              🧬 MBTI: <strong>{{ r.mbti }}</strong> &nbsp; | &nbsp; DISC: <strong>{{ r.disc }}</strong> &nbsp; | &nbsp; Eneagrama: <strong>{{ r.eneagrama }}</strong>
+            </span>
+          </div>
+          <div style="background-color: rgba(255,255,255,0.03); padding: 1rem; border-radius: 10px; border-left: 4px solid #d4af37;">
+            <p style="margin: 0; font-size: 0.95rem; line-height: 1.5; color: #eee;">
+              {{ r.texto }}
+            </p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <div class="ai-summary-box" style="margin-top: 3rem;">
+    <h2>💬 Pergunte à Coach IA</h2>
+    <form id="coaching-form" method="POST">
+      <textarea id="pergunta" name="pergunta" rows="4" placeholder="Pergunte sobre seu crescimento, carreira ou desafios emocionais..." style="width: 100%; padding: 1rem; border-radius: 10px; border: none; resize: vertical;"></textarea>
+      <button type="submit" style="margin-top: 1rem; padding: 0.75rem 1.5rem; background-color: #d4af37; color: #0b1f36; border: none; border-radius: 10px; font-weight: 600; cursor: pointer;">Enviar</button>
+    </form>
+    <div id="resposta-ia" style="margin-top: 1.5rem; color: #eee;"></div>
+  </div>
+
+  <script>
+    const form = document.getElementById('coaching-form');
+    const respostaDiv = document.getElementById('resposta-ia');
+
+    form.onsubmit = async function(e) {
+      e.preventDefault();
+      const pergunta = document.getElementById('pergunta').value.trim();
+      if (!pergunta) {
+        respostaDiv.innerHTML = "<p style='color: orange;'>Por favor, escreva sua pergunta.</p>";
+        return;
+      }
+
+      respostaDiv.innerHTML = "⏳ Preparando sua resposta personalizada...";
+
+      try {
+        const res = await fetch("/coaching-video", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: `pergunta=${encodeURIComponent(pergunta)}`
+        });
+
+        const data = await res.json();
+
+        if (data.resposta_texto) {
+          respostaDiv.innerHTML = `<p style="margin-bottom: 1rem;">${data.resposta_texto}</p>`;
+        } else {
+          respostaDiv.innerHTML = `<p style="color:red;">${data.erro || "Erro inesperado."}</p>`;
+        }
+
+      } catch (err) {
+        respostaDiv.innerHTML = `<p style="color:red;">⚠️ Algo deu errado. Tente novamente mais tarde.</p>`;
+      }
+    };
+  </script>
+
+  <div class="ai-summary-box" style="margin-top: 2.5rem; border: 1px dashed #d4af37;">
+    <h2 style="color: #ffdd77;">🎯 Descubra Seu Propósito</h2>
+    <p style="color:#ccc; font-size: 0.95rem; margin-bottom: 1rem;">
+      Quer descobrir seu propósito profissional? Faça nosso Teste Vocacional <strong>gratuitamente</strong> e receba um relatório exclusivo da IA sobre seus talentos naturais e caminhos ideais.
+    </p>
+    <a href="{{ url_for('vocacional.vocational_test_view') }}" style="display: inline-block; padding: 0.75rem 1.5rem; background-color: #d4af37; color: #0b1f36; border-radius: 10px; font-weight: 600; text-decoration: none;">
+      🚀 Fazer Teste Vocacional Grátis
+    </a>
+  </div>
+
+  <div class="actions" style="margin-top: 2.5rem;">
+    <a href="https://billing.stripe.com/p/login/3csdRneuV1Co8UMdQQ" target="_blank" style="background-color: transparent; color: #ff5c5c; border: 2px solid #ff5c5c;">
+      ❌ Cancelar minha assinatura
+    </a>
+  </div>
+</div>

@@ -1,0 +1,225 @@
+{% extends "base.html" %}
+{% block title %}Behavioral Test • YouDecoded.AI{% endblock %}
+{% block content %}
+
+<style>
+  .assessment-box {
+    background: #0b1f36;
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.4);
+    max-width: 820px;
+    margin: 2.5rem auto;
+    color: white;
+    box-sizing: border-box;
+  }
+
+  .assessment-box h1 {
+    text-align: center;
+    color: #d4af37;
+    margin-bottom: 2rem;
+    font-size: clamp(1.6rem, 5vw, 1.8rem);
+    font-weight: 600;
+  }
+
+  .logo-center {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+
+  .logo-center img {
+    height: 75px;
+    max-width: 100%;
+  }
+
+  .intro-text {
+    background-color: #0b1f36;
+    padding: 1.2rem;
+    border-radius: 10px;
+    font-size: clamp(0.9rem, 2.5vw, 0.95rem);
+    color: #ddd;
+    line-height: 1.6;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    margin-bottom: 2rem;
+  }
+
+  .question {
+    margin-bottom: 2.5rem;
+  }
+
+  .question-text {
+    font-weight: 500;
+    margin-bottom: 0.6rem;
+    font-size: clamp(1rem, 2.5vw, 1.05rem);
+  }
+
+  .labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    margin-bottom: 0.4rem;
+    color: #ccc;
+    padding: 0 0.5rem;
+  }
+
+  .options {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .options label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 0.4rem 0.4rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    color: #fff;
+    width: 40px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
+  .options label:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+
+  .options input[type="radio"] {
+    margin-bottom: 0.3rem;
+    transform: scale(1.1);
+    cursor: pointer;
+  }
+
+  .submit-btn, .save-exit-btn {
+    background-color: #d4af37;
+    color: white;
+    padding: 0.9rem 2.4rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    display: block;
+    margin: 1rem auto 0;
+    transition: background-color 0.3s ease;
+    width: 100%;
+  }
+
+  .submit-btn:hover, .save-exit-btn:hover {
+    background-color: #c39b2b;
+  }
+
+  .no-questions {
+    text-align: center;
+    font-size: 1rem;
+    margin-top: 2rem;
+    color: #ccc;
+  }
+
+  @media (max-width: 600px) {
+    .assessment-box {
+      padding: 2rem 1rem;
+    }
+
+    .intro-text {
+      font-size: 0.9rem;
+    }
+
+    .question-text {
+      font-size: 1rem;
+      text-align: center;
+    }
+
+    .labels {
+      font-size: 0.85rem;
+      padding: 0 0.25rem;
+    }
+
+    .options {
+      gap: 8px;
+      padding: 0 0.25rem 8px 0.25rem;
+    }
+
+    .options label {
+      width: 36px;
+      font-size: 0.85rem;
+    }
+  }
+</style>
+
+<div class="assessment-box">
+  <div class="logo-center">
+    <img src="{{ url_for('static', filename='img/logo.png') }}" alt="YouDecodedAI Logo">
+  </div>
+
+  {% extends "base.html" %}
+{% block title %}Teste Comportamental • YouDecoded.AI{% endblock %}
+{% block content %}
+
+<style>
+  /* (o CSS permanece exatamente igual, sem alterações) */
+</style>
+
+<div class="assessment-box">
+  <div class="logo-center">
+    <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo YouDecodedAI">
+  </div>
+
+  <h1>Teste Comportamental</h1>
+
+  {% if questions %}
+  <form method="POST" action="{{ url_for('user.submit_responses') }}">
+    <div class="intro-text">
+      📝 <strong>Bem-vindo(a) à sua jornada de autoconhecimento!</strong><br><br>
+      Não existem respostas certas ou erradas. Selecione um número de 1 a 5 que melhor reflita seus sentimentos, comportamentos e instintos.<br>
+      Este teste leva menos de 10 minutos. Respire, desacelere e aproveite este momento só para <strong>você</strong>.<br><br>
+      Boa jornada! – <em>YouDecodedAI</em>
+    </div>
+
+    {% for question in questions %}
+      <div class="question">
+        <div class="question-text">{{ loop.index }}. {{ question.text.pt }}</div>
+
+        <div class="labels">
+          {% if question.label_left and question.label_right %}
+            <span>{{ question.label_left.pt }}</span>
+            <span>{{ question.label_right.pt }}</span>
+          {% else %}
+            <span>Discordo totalmente</span>
+            <span>Concordo totalmente</span>
+          {% endif %}
+        </div>
+
+        <div class="options">
+          {% for i in range(1, 6) %}
+            <label>
+              <input type="radio" name="response_{{ question.id }}" value="{{ i }}" 
+              {% if respostas_salvas.get(question.id) == i %}checked{% endif %} required>
+              {{ i }}
+            </label>
+          {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+
+    <button type="submit" class="submit-btn">Enviar Respostas</button>
+    </form>
+ 
+  {% else %}
+    <p class="no-questions">
+      Nenhuma pergunta disponível no momento. Por favor, tente novamente mais tarde.
+    </p>
+  {% endif %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% block title %}Test History • YouDecoded.AI{% endblock %}
+{% block content %}
+
+<style>
+  .history-box {
+    background: #0b1f36;
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 2.5rem auto;
+    color: white;
+  }
+
+  .history-box h1 {
+    text-align: center;
+    color: #d4af37;
+    margin-bottom: 2rem;
+    font-size: 1.6rem;
+    font-weight: 600;
+  }
+
+  .session {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1rem 0;
+  }
+
+  .session:last-child {
+    border-bottom: none;
+  }
+
+  .session-date {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: #eee;
+  }
+
+  .session-profiles {
+    font-size: 0.95rem;
+    color: #ccc;
+    margin-bottom: 0.8rem;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    background-color: #d4af37;
+    color: #0b1f36;
+    border: none;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-right: 0.6rem;
+    margin-bottom: 0.4rem;
+    transition: background 0.2s ease;
+  }
+
+  .btn:hover {
+    background-color: #c39b2b;
+  }
+
+  .no-sessions {
+    text-align: center;
+    font-style: italic;
+    color: #ccc;
+    margin-top: 2rem;
+  }
+
+  .back-link {
+    text-align: center;
+    margin-top: 2.5rem;
+  }
+
+  .back-link a {
+    color: #d4af37;
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .back-link a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 600px) {
+    .btn {
+      display: block;
+      width: 100%;
+      margin: 0.4rem 0;
+      text-align: center;
+    }
+
+    .session-date {
+      font-size: 0.95rem;
+    }
+  }
+</style>
+
+<div class="history-box">
+  <h1>Histórico de Testes</h1>
+
+  {% if sessoes %}
+    {% for sessao in sessoes %}
+      <div class="session">
+        <div class="session-date">
+          Data: {{ sessao.created_at.strftime('%d/%m/%Y %H:%M') }}
+        </div>
+        <div class="session-profiles">
+          <strong>MBTI:</strong> {{ sessao.mbti_result or "N/A" }} &nbsp; | &nbsp;
+          <strong>DISC:</strong> {{ sessao.disc_result or "N/A" }} &nbsp; | &nbsp;
+          <strong>Eneagrama:</strong> {{ sessao.eneagrama_result or "N/A" }}
+        </div>
+        <a class="btn" href="{{ url_for('user.gerar_relatorio') }}?sessao_id={{ sessao.id }}" target="_blank">📄 Ver Relatório</a>
+        <a class="btn" href="{{ url_for('user.relatorio_pdf') }}?sessao_id={{ sessao.id }}" target="_blank">⬇️ Baixar PDF</a>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p class="no-sessions">Você ainda não realizou nenhum teste.</p>
+  {% endif %}
+
+  <div class="back-link">
+    <a href="{{ url_for('auth_views.dashboard') }}">← Voltar ao painel</a>
+  </div>
+</div>
+
+{% endblock %}

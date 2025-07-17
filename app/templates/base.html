@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}YouDecoded.AI{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "rcufwpxoql");
+</script>
+
+  <style>
+    :root {
+      --main-bg: #0e1a2b;
+      --container-bg: #ffffff;
+      --primary-color: #d4af37;
+      --text-color: #1a1a1a;
+      --border-radius: 16px;
+    }
+
+    html, body {
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: system-ui, sans-serif;
+      background-color: var(--main-bg);
+      margin: 0;
+      padding: 2rem 1.5rem;
+      color: var(--text-color);
+      font-size: clamp(15px, 2.5vw, 16px);
+      line-height: 1.6;
+    }
+
+    body:not(.report-page) {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: auto;
+      background-color: var(--container-bg);
+      padding: 2.5rem;
+      border-radius: var(--border-radius);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      box-sizing: border-box;
+    }
+
+    h1, h2, h3 {
+      color: var(--primary-color);
+      line-height: 1.3;
+      margin-bottom: 1.25rem;
+      word-wrap: break-word;
+    }
+
+    h1 {
+      font-size: clamp(1.6rem, 4vw, 2rem);
+    }
+
+    h2 {
+      font-size: clamp(1.3rem, 3vw, 1.5rem);
+    }
+
+    h3 {
+      font-size: clamp(1.1rem, 2.5vw, 1.25rem);
+    }
+
+    p {
+      margin-bottom: 1rem;
+    }
+
+    .flash {
+      margin: 1rem 0;
+      padding: 0.85rem 1.2rem;
+      border-radius: 12px;
+      font-weight: 500;
+      text-align: center;
+      border: 1px solid transparent;
+    }
+
+    .flash.success {
+      background-color: #e6f9ed;
+      color: #155724;
+      border-color: #b3e6cc;
+    }
+
+    .flash.error {
+      background-color: #fdecea;
+      color: #a30000;
+      border-color: #f5c6cb;
+    }
+
+    .flash.warning {
+      background-color: #fff3cd;
+      color: #856404;
+      border-color: #ffeeba;
+    }
+
+    button, .btn, input[type="submit"] {
+      background-color: var(--primary-color);
+      color: #0e1a2b;
+      border: none;
+      padding: 0.75rem 1.25rem;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-size: 1rem;
+    }
+
+    button:hover, .btn:hover, input[type="submit"]:hover {
+      background-color: #c39b2b;
+    }
+
+    input, select, textarea {
+      font-family: inherit;
+      padding: 0.6rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      width: 100%;
+      margin-bottom: 1rem;
+      box-sizing: border-box;
+      font-size: 1rem;
+    }
+
+    input[type="password"] {
+      padding-right: 2.5rem;
+      position: relative;
+    }
+
+    .password-toggle {
+      position: absolute;
+      right: 1.2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    img, .card, .login-box, .test-form, .box {
+      max-width: 100%;
+      overflow-wrap: break-word;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 1.5rem 1rem;
+        font-size: clamp(14px, 4vw, 15px);
+      }
+
+      .container {
+        padding: 1.5rem;
+        border-radius: 12px;
+      }
+
+      h1, h2, h3 {
+        text-align: center;
+      }
+
+      button, .btn, input[type="submit"] {
+        width: 100%;
+        padding: 1rem;
+        font-size: 1.05rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 1rem;
+      }
+
+      h1, h2, h3 {
+        font-size: 1.2rem;
+        text-align: center;
+      }
+
+      input, textarea, select {
+        font-size: 1rem;
+      }
+
+      .btn, button, input[type="submit"] {
+        font-size: 1rem;
+        padding: 0.85rem;
+      }
+
+      .card {
+        padding: 1rem !important;
+        margin-bottom: 1rem;
+      }
+    }
+
+    /* === Contact Floating Button === */
+    .contact-floating {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background-color: var(--primary-color);
+      color: #0e1a2b;
+      border-radius: 50%;
+      width: 54px;
+      height: 54px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.4rem;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+      transition: background-color 0.3s ease;
+      z-index: 1000;
+    }
+
+    .contact-floating:hover {
+      background-color: #c39b2b;
+    }
+
+    @media (max-width: 600px) {
+      .contact-floating {
+        width: 48px;
+        height: 48px;
+        font-size: 1.2rem;
+        bottom: 16px;
+        right: 16px;
+      }
+    }
+  </style>
+</head>
+<body class="{% block body_class %}{% endblock %}">
+  <div class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="flash {{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </div>
+
+  <!-- Floating Contact Button -->
+  <a href="{{ url_for('contato.contato') }}" class="contact-floating" title="Contact us">
+    💬
+  </a>
+</body>
+</html>

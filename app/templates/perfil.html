@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% block title %}Edit Profile • YouDecoded.AI{% endblock %}
+{% block content %}
+
+<style>
+  .profile-box {
+    max-width: 600px;
+    margin: 2.5rem auto;
+    padding: 2.5rem;
+    background: #0b1f36;
+    color: white;
+    border-radius: 20px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+  }
+
+  .profile-box h1 {
+    color: #d4af37;
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  label {
+    font-weight: 500;
+    font-size: 1rem;
+    margin-bottom: 0.2rem;
+    color: #ccc;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
+    padding: 0.9rem;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 1rem;
+    background-color: #fff;
+    color: #333;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  input[type="password"]:focus {
+    outline: none;
+    border-color: #d4af37;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+  }
+
+  button[type="submit"] {
+    background-color: #d4af37;
+    color: white;
+    border: none;
+    padding: 0.9rem;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  button[type="submit"]:hover {
+    background-color: #c39b2b;
+  }
+
+  .back-link {
+    text-align: center;
+    margin-top: 1.5rem;
+  }
+
+  .back-link a {
+    color: #d4af37;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .back-link a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 600px) {
+    .profile-box {
+      padding: 2rem 1.5rem;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      font-size: 0.95rem;
+    }
+
+    label {
+      font-size: 0.95rem;
+    }
+  }
+</style>
+
+<div class="profile-box">
+  <h1>Editar Perfil</h1>
+
+  <form method="POST">
+    <div>
+      <label for="name">Nome Completo</label>
+      <input type="text" id="name" name="name" value="{{ user.name }}" required />
+    </div>
+
+    <div>
+      <label for="email">Endereço de Email</label>
+      <input type="email" id="email" name="email" value="{{ user.email }}" required />
+    </div>
+
+    <div>
+      <label for="password">Nova Senha <small>(opcional)</small></label>
+      <input type="password" id="password" name="password" placeholder="Deixe em branco para manter a atual" />
+    </div>
+
+    <button type="submit">Salvar Alterações</button>
+  </form>
+
+  <div class="back-link">
+    <a href="{{ url_for('auth_views.dashboard') }}">← Voltar para o Painel</a>
+  </div>
+</div>
+
+{% endblock %}
