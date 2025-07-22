@@ -47,7 +47,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     permissions:
-      id-token: write # Required for OIDC login
       contents: read
 
     steps:
@@ -59,16 +58,9 @@ jobs:
       - name: Unzip artifact for deployment
         run: unzip release.zip
 
-      - name: Login to Azure
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_8E5094DB549844BF8793615720E49FA4 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_C553571B0C0E44388B8EB163854A1089 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID }}
-
-      - name: 'Deploy to Azure Web App'
+      - name: 'Deploy to Azure Web App using publish profile'
         uses: azure/webapps-deploy@v3
-        id: deploy-to-webapp
         with:
           app-name: 'youdecodedbr'
-          slot-name: 'production'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE }}
+          package: .
